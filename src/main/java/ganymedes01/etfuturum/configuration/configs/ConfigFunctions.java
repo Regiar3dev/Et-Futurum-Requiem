@@ -174,8 +174,8 @@ public class ConfigFunctions extends ConfigBase {
 	static final String catClient = "client";
 	static final String catCommands = "client";
 
-	public ConfigFunctions(File file) {
-		super(file);
+	public ConfigFunctions(File file, String configName) {
+		super(file, configName);
 		setCategoryComment(catChanges, "Changes to existing content.");
 		setCategoryComment(catSettings, "Settings for Et Futurum content.");
 		setCategoryComment(catCommands, "New commands");

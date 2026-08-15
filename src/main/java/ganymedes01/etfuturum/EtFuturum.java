@@ -1,5 +1,6 @@
 package ganymedes01.etfuturum;
 
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.Mod.EventHandler;
 import cpw.mods.fml.common.Mod.Instance;
@@ -171,6 +172,11 @@ public class EtFuturum {
 	@EventHandler
 	@SuppressWarnings("unchecked")
 	public void preInit(FMLPreInitializationEvent event) {
+
+		for (ConfigBase config : ConfigBase.getConfigs()) {
+			FMLCommonHandler.instance().bus().register(config);
+		}
+
 		try {
 			Field chestInfo = ChestGenHooks.class.getDeclaredField("chestInfo");
 			chestInfo.setAccessible(true);

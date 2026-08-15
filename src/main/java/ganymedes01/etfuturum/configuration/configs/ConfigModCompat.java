@@ -21,8 +21,8 @@ public class ConfigModCompat extends ConfigBase {
 
 	static final String catMisc = "misc";
 
-	public ConfigModCompat(File file) {
-		super(file);
+	public ConfigModCompat(File file, String configName) {
+		super(file, configName);
 
 		getCategory(catMisc).setComment("When modded deepslate or raw ore support is enabled, OreDictionary tags will be given to the needed Lord of the Rings ores since they don't have any tags for some reason.\nLoTR Ores that have no raw/deepslate modded alternative will not be tagged.");
 

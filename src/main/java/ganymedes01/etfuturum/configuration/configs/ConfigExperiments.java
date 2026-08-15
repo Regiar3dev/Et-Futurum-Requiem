@@ -23,8 +23,8 @@ public class ConfigExperiments extends ConfigBase {
 	public static boolean netherDimensionProvider;
 	public static boolean endDimensionProvider;
 
-	public ConfigExperiments(File file) {
-		super(file);
+	public ConfigExperiments(File file, String configName) {
+		super(file, configName);
 		setCategoryComment(catExperiments,
                 """
                         Unfinished features. Handle with care! To automatically enable all of these at once, use "-Detfuturum.testing=true" in your program arguments.

@@ -1,6 +1,7 @@
 package ganymedes01.etfuturum.configuration;
 
 import cpw.mods.fml.client.event.ConfigChangedEvent;
+import cpw.mods.fml.common.FMLCommonHandler;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import ganymedes01.etfuturum.mixinplugin.EtFuturumEarlyMixins;
 import ganymedes01.etfuturum.configuration.configs.*;
@@ -20,30 +21,44 @@ import java.util.Set;
 public abstract class ConfigBase extends Configuration {
 	protected final List<ConfigCategory> configCats = new ArrayList<>();
 	private static final Set<ConfigBase> CONFIGS = new HashSet<>();
+	protected final String configName;
 
 	public static final String configDir = "config" + File.separator + Reference.MOD_ID + File.separator;
 
-	public static final ConfigBase EXPERIMENTS = new ConfigExperiments(createConfigFile("experiments"));
+	public static final ConfigBase EXPERIMENTS = new ConfigExperiments(createConfigFile("experiments"), "Experiments");
 
-	public static final ConfigBase BLOCKS_ITEMS = new ConfigBlocksItems(createConfigFile("blocksitems"));
-	public static final ConfigBase ENCHANTS_POTIONS = new ConfigEnchantsPotions(createConfigFile("enchantspotions"));
-	public static final ConfigBase FUNCTIONS = new ConfigFunctions(createConfigFile("functions"));
-	public static final ConfigBase TWEAKS = new ConfigTweaks(createConfigFile("tweaks"));
-	public static final ConfigBase WORLD = new ConfigWorld(createConfigFile("world"));
-	public static final ConfigBase ENTITIES = new ConfigEntities(createConfigFile("entities"));
-	public static final ConfigBase SOUNDS = new ConfigSounds(createConfigFile("sounds"));
-	public static final ConfigBase MOD_COMPAT = new ConfigModCompat(createConfigFile("modcompat"));
+	public static final ConfigBase BLOCKS_ITEMS = new ConfigBlocksItems(createConfigFile("blocksitems"), "Blocks & Items");
+	public static final ConfigBase ENCHANTS_POTIONS = new ConfigEnchantsPotions(createConfigFile("enchantspotions"), "Enchants & Potions");
+	public static final ConfigBase FUNCTIONS = new ConfigFunctions(createConfigFile("functions"), "Functions");
+	public static final ConfigBase TWEAKS = new ConfigTweaks(createConfigFile("tweaks"), "Tweaks");
+	public static final ConfigBase WORLD = new ConfigWorld(createConfigFile("world"), "World");
+	public static final ConfigBase ENTITIES = new ConfigEntities(createConfigFile("entities"), "Entities");
+	public static final ConfigBase SOUNDS = new ConfigSounds(createConfigFile("sounds"), "Sounds");
+	public static final ConfigBase MOD_COMPAT = new ConfigModCompat(createConfigFile("modcompat"), "Mod Compatibility");
 
-	public static final ConfigBase MIXINS = new ConfigMixins(createConfigFile("mixins"));
+	public static final ConfigBase MIXINS = new ConfigMixins(createConfigFile("mixins"), "Mixins");
 
-	public ConfigBase(File file) {
+	public ConfigBase(File file, String configName) {
 		super(file);
+		this.configName = configName;
 		CONFIGS.add(this);
 	}
 
-	private static File createConfigFile(String name) {
-		return new File(Launch.minecraftHome, configDir + name + ".cfg");
+	public static Set<ConfigBase> getConfigs() {
+		return CONFIGS;
 	}
+
+	public List<ConfigCategory> getConfigCats() {
+		return configCats;
+	}
+
+	public String getConfigName() {
+		return configName;
+	}
+
+  	private static File createConfigFile(String name) {
+		return new File(Launch.minecraftHome, configDir + name + ".cfg");
+  	}
 
 	public static void initializeConfigs() {
 		for (ConfigBase config : CONFIGS) {
